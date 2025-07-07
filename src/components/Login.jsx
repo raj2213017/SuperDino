@@ -2,10 +2,34 @@ import React from 'react';
 import styled from "styled-components";
 
 export default function Login() {
+  const handleClick = () => {
+    const clientId = "a7b5e9ee81d04b74aa7d62f50f1f7b39";
+    const redirectUrl = "http://127.0.0.1:3000/callback"; 
+    const authEndpoint = "https://accounts.spotify.com/authorize";
+    const scope = [ 
+         "user-read-email",
+         "user-read-private",
+         "user-read-playback-state",
+         "user-modify-playback-state",
+         "user-read-currently-playing",
+         "user-read-playback-position",
+         "user-top-read",
+         "user-read-recently-played",
+
+    ].join(" ");
+
+    const url = `${authEndpoint}?client_id=${clientId}&redirect_uri=${encodeURIComponent(
+  redirectUrl
+)}&scope=${encodeURIComponent(scope)}&response_type=code&show_dialog=true`;
+
+    // Redirect to login
+    window.location.href = url;
+  };
+
   return (
     <Container>
       <img src="/assets/logo.png" alt="Dino Music" />
-      <button>Connect Dino Music</button>
+      <button onClick={handleClick}>Connect Dino Music</button>
     </Container>
   );
 }
@@ -13,7 +37,7 @@ export default function Login() {
 const Container = styled.div`
   display: flex;
   flex-direction: column;
-  align-items: center; /* ✅ Fixed */
+  align-items: center; 
   justify-content: center;
   height: 100vh;
   width: 100vw;
